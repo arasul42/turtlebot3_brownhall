@@ -2,6 +2,12 @@
 
 This is a ROS package for navigation and simulation with Turtlebot3
 
+This package should not be used because the name is already being used by ROS!
+
+This work has been moved to https://github.com/thillrobot/turtlebot3_control
+
+
+
 ROS - The Turtlebot Simulator
 ME 4140 - Introduction to Robotics - Fall 2019
 1. Update your linux system before you get started.
