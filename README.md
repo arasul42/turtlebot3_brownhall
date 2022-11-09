@@ -1,6 +1,58 @@
-# turtlebot3_navigation
+# turtlebot3_brownhall
 
-This is a ROS package for navigation and simulation with Turtlebot3
+This is a ROS package for navigation and simulation with Turtlebot3 in Brown Hall.
+
+
+## custom world configuration
+
+Clone a local copy of this package into `catkin_ws/src`
+
+
+Export the proper environment variables
+
+
+```
+export TURTLEBOT3_MODEL=waffle_pi
+
+export GAZEBO_PLUGIN_PATH=~/catkin_ws/src/turtlebot3_brownhall/lib:${GAZEBO_PLUGIN_PATH}
+export GAZEBO_MODEL_PATH=~/catkin_ws/src/turtlebot3_brownhall/models:${GAZEBO_MODEL_PATH}
+export GAZEBO_RESOURCE_PATH=~/catkin_ws/src/turtlebot3_brownhall/models:${GAZEBO_RESOURCE_PATH}
+```
+
+## use
+
+Start the robot in a custom gazebo world with the following launch file.
+
+```
+roslaunch turtlebot3_brownhall turtlebot3_brownhall.launch
+```
+
+Test the robot with keyboard telop
+
+```
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+```
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Old stuff below here 
 
 ROS - The Turtlebot Simulator
 ME 4140 - Introduction to Robotics - Fall 2019
@@ -30,8 +82,10 @@ roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
 5. Next we are going to learn about SLAM and GMAPPING ! Please see the tutorial
 referenced above if you are ready to proceed.
 
-TWH LOGS - 11/16/2019
 
+## notes for making custom simulator world
+
+TWH LOGS - 11/16/2019
 
     Goal: Run turtlebot3 with navigation in a simulated brown hall.
 
