@@ -3,17 +3,34 @@
   <arg name="x_pos" default="-1.75"/>
   <arg name="y_pos" default="28.0"/>
   <arg name="z_pos" default="0.0"/>
+  <arg name="yaw" default="-1.5708" doc="Initial yaw (orientation)"/>
 
+  <!-- Include Gazebo World -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find turtlebot3_brownhall)/worlds/turtlebot3_brown3.world"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
-    <arg name="gui" value="true"/>
-    <arg name="headless" value="false"/>
+    <arg name="gui" value="false"/>
+    <arg name="headless" value="true"/>
     <arg name="debug" value="false"/>
   </include>
 
-  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+  <!-- Spawn TurtleBot -->
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf"  
+        args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg yaw) -param robot_description" />
 
-  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf"  args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y -1.5708 -param robot_description" />
+  <!-- Include Navigation -->
+  <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+    <arg name="map_file" value="$(find intro_robotics)/maps/brown_hall_5.yaml"/>
+    <!-- Pass initial pose to AMCL -->
+    <arg name="initial_pose_x" value="$(arg x_pos)"/>
+    <arg name="initial_pose_y" value="$(arg y_pos)"/>
+    <arg name="initial_pose_a" value="$(arg yaw)"/>
+  </include>
+
+  <node pkg="turtlebot3_brownhall" type="multi_goal_mission.py" name="custom_script" output="screen"/>
+
+
+
+
 </launch>
